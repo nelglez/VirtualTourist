@@ -1,5 +1,5 @@
 //
-//  PhotoAlbumViewCell.swift
+//  PhotoCell.swift
 //  VirtualTourist
 //
 //  Created by Sam Townsend on 2018-12-16.
@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 
-class PhotoAlbumViewCell: UICollectionViewCell {
+class PhotoCell: UICollectionViewCell {
     
     // MARK: - IBOutlets
   
     @IBOutlet weak var PhotoAlbumImageView: UIImageView!
+
 }

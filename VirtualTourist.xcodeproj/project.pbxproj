@@ -17,7 +17,9 @@
 		1D78868521C3375300A0C7DC /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868421C3375300A0C7DC /* PhotoAlbumViewController.swift */; };
 		1D78868921C6CB6900A0C7DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868821C6CB6900A0C7DC /* Constants.swift */; };
 		1D78868B21C6CBAB00A0C7DC /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868A21C6CBAB00A0C7DC /* GCDBlackBox.swift */; };
-		1D78868D21C6CEAF00A0C7DC /* PhotoAlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868C21C6CEAF00A0C7DC /* PhotoAlbumViewCell.swift */; };
+		1D78868D21C6CEAF00A0C7DC /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868C21C6CEAF00A0C7DC /* PhotoCell.swift */; };
+		1D9147DD21C6DE9B001F07B6 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */; };
+		1D9147DF21C6E2A6001F07B6 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147DE21C6E2A6001F07B6 /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +56,9 @@
 		1D78868421C3375300A0C7DC /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		1D78868821C6CB6900A0C7DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1D78868A21C6CBAB00A0C7DC /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
-		1D78868C21C6CEAF00A0C7DC /* PhotoAlbumViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewCell.swift; sourceTree = "<group>"; };
+		1D78868C21C6CEAF00A0C7DC /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
+		1D9147DE21C6E2A6001F07B6 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,11 +111,11 @@
 			isa = PBXGroup;
 			children = (
 				1D78864F21C3336D00A0C7DC /* AppDelegate.swift */,
+				1D78868A21C6CBAB00A0C7DC /* GCDBlackBox.swift */,
 				1D78867E21C333A900A0C7DC /* Modal */,
 				1D78867F21C333B000A0C7DC /* View */,
 				1D78868021C333B400A0C7DC /* Controller */,
 				1D78868121C333C300A0C7DC /* SupportFiles */,
-				1D78868A21C6CBAB00A0C7DC /* GCDBlackBox.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -164,7 +168,8 @@
 			children = (
 				1D78868221C336BF00A0C7DC /* MapViewController.swift */,
 				1D78868421C3375300A0C7DC /* PhotoAlbumViewController.swift */,
-				1D78868C21C6CEAF00A0C7DC /* PhotoAlbumViewCell.swift */,
+				1D78868C21C6CEAF00A0C7DC /* PhotoCell.swift */,
+				1D9147DE21C6E2A6001F07B6 /* Photo.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				1D78868821C6CB6900A0C7DC /* Constants.swift */,
+				1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */,
 			);
 			path = Flickr;
 			sourceTree = "<group>";
@@ -324,8 +330,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D9147DF21C6E2A6001F07B6 /* Photo.swift in Sources */,
 				1D78868321C336BF00A0C7DC /* MapViewController.swift in Sources */,
-				1D78868D21C6CEAF00A0C7DC /* PhotoAlbumViewCell.swift in Sources */,
+				1D78868D21C6CEAF00A0C7DC /* PhotoCell.swift in Sources */,
+				1D9147DD21C6DE9B001F07B6 /* FlickrClient.swift in Sources */,
 				1D78865021C3336D00A0C7DC /* AppDelegate.swift in Sources */,
 				1D78868521C3375300A0C7DC /* PhotoAlbumViewController.swift in Sources */,
 				1D78868921C6CB6900A0C7DC /* Constants.swift in Sources */,

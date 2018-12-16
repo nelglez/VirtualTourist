@@ -13,4 +13,9 @@ import MapKit
 
 class MapViewController: UIViewController {
     
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
+    
 }
