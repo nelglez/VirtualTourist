@@ -21,6 +21,7 @@
 		1D9147DD21C6DE9B001F07B6 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */; };
 		1D9147E421C70DC0001F07B6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147E221C70DC0001F07B6 /* CoreDataModel.xcdatamodeld */; };
 		1D9147E621C72B69001F07B6 /* Pin+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147E521C72B69001F07B6 /* Pin+Extra.swift */; };
+		1D9147E821C739FD001F07B6 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147E721C739FD001F07B6 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		1D9147E321C70DC0001F07B6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1D9147E521C72B69001F07B6 /* Pin+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extra.swift"; sourceTree = "<group>"; };
+		1D9147E721C739FD001F07B6 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				1D9147E221C70DC0001F07B6 /* CoreDataModel.xcdatamodeld */,
+				1D9147E721C739FD001F07B6 /* DataController.swift */,
 				1D9147E521C72B69001F07B6 /* Pin+Extra.swift */,
 				1D78868621C3378C00A0C7DC /* Clients */,
 			);
@@ -338,6 +341,7 @@
 				1D9147E421C70DC0001F07B6 /* CoreDataModel.xcdatamodeld in Sources */,
 				1D9147DD21C6DE9B001F07B6 /* FlickrClient.swift in Sources */,
 				1D78865021C3336D00A0C7DC /* AppDelegate.swift in Sources */,
+				1D9147E821C739FD001F07B6 /* DataController.swift in Sources */,
 				1D9147E621C72B69001F07B6 /* Pin+Extra.swift in Sources */,
 				1D78868521C3375300A0C7DC /* PhotoAlbumViewController.swift in Sources */,
 				1D78868921C6CB6900A0C7DC /* Constants.swift in Sources */,
