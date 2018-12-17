@@ -13,19 +13,22 @@ import CoreData
 
 
 class MapViewController: UIViewController {
+
     
     // MARK: - IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var deleteBannerConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     
     var pins:[Pin] = []
     var dataController: DataController!
     
+    var deleteAllowed = false
+    
     override func viewDidLoad() {
-     
      callFetchRequest()
     }
     
@@ -43,11 +46,11 @@ class MapViewController: UIViewController {
         }
     }
     
-    @IBAction func viewPressedToAddPin(_ sender: UILongPressGestureRecognizer) {
+        @IBAction func pressMapToAddPin(_ sender: UILongPressGestureRecognizer) {
         
         if sender.state == .began {
-            let touchedMap = sender.location(in: mapView)
-            let coordinates = mapView.convert(touchedMap, toCoordinateFrom: mapView)
+            let pressedMap = sender.location(in: mapView)
+            let coordinates = mapView.convert(pressedMap, toCoordinateFrom: mapView)
             let pin = Pin(context: dataController.viewContext)
             pin.latitude = Double(coordinates.latitude)
             pin.longitude = Double(coordinates.longitude)
@@ -57,6 +60,17 @@ class MapViewController: UIViewController {
             annotation.coordinate = coordinates
             mapView.addAnnotation(annotation)
         }
+    }
+    
+    @IBAction func pressEditButton(_ sender: Any) {
+        deleteBannerConstraint.constant = deleteBannerConstraint.constant == 0 ? -70.0 : 0
+        editButton.title = deleteBannerConstraint.constant == 0 ? "Edit" : "Done"
+        deleteAllowed = deleteBannerConstraint.constant == 0 ? false : true
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+        
     }
     
 }

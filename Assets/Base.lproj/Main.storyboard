@@ -25,29 +25,59 @@
                                     <outletCollection property="gestureRecognizers" destination="aEo-If-hMp" appends="YES" id="2ra-Si-Xrh"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eNf-Wj-0be">
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pin to Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xeg-lS-irs">
+                                        <rect key="frame" x="122.5" y="20.5" width="130" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.02328635045" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="Xeg-lS-irs" firstAttribute="top" secondItem="eNf-Wj-0be" secondAttribute="top" constant="20.5" id="Cnx-YW-iK1"/>
+                                    <constraint firstItem="Xeg-lS-irs" firstAttribute="centerX" secondItem="eNf-Wj-0be" secondAttribute="centerX" id="SZi-yc-eff"/>
+                                    <constraint firstItem="Xeg-lS-irs" firstAttribute="centerY" secondItem="eNf-Wj-0be" secondAttribute="centerY" id="a4m-L5-Ajd"/>
+                                    <constraint firstAttribute="height" constant="70" id="oSS-rI-RAr"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="eNf-Wj-0be" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="9QQ-u1-gQA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vpy-5o-uB3" secondAttribute="bottom" id="I7O-Zh-Kvb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vpy-5o-uB3" secondAttribute="trailing" id="Ti6-6D-Wte"/>
+                            <constraint firstItem="eNf-Wj-0be" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Vn9-RG-Paf"/>
                             <constraint firstItem="Vpy-5o-uB3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="YC7-7M-HK5"/>
+                            <constraint firstItem="eNf-Wj-0be" firstAttribute="top" secondItem="Vpy-5o-uB3" secondAttribute="bottom" id="uOs-6d-nuo"/>
+                            <constraint firstItem="eNf-Wj-0be" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yVr-0n-zee"/>
                             <constraint firstItem="Vpy-5o-uB3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zmr-t0-cJu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Virtual Tourist" id="2Jo-pO-ism"/>
+                    <navigationItem key="navigationItem" title="Virtual Tourist" id="2Jo-pO-ism">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="lKw-5u-GRG">
+                            <connections>
+                                <action selector="pressEditButton:" destination="BYZ-38-t0r" id="YYY-Wl-Tba"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="deleteBannerConstraint" destination="uOs-6d-nuo" id="RHl-n6-1UR"/>
+                        <outlet property="editButton" destination="lKw-5u-GRG" id="Xyf-Yc-C2k"/>
                         <outlet property="mapView" destination="Vpy-5o-uB3" id="uo4-Pv-bfL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="aEo-If-hMp">
                     <connections>
-                        <action selector="viewPressedToAddPin:" destination="BYZ-38-t0r" id="rFt-5b-Q3w"/>
+                        <action selector="pressMapToAddPin:" destination="BYZ-38-t0r" id="1Kq-b3-iHf"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="124" y="27"/>
+            <point key="canvasLocation" x="80.799999999999997" y="26.53673163418291"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xzF-Ya-Ly9">
@@ -136,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIt-5m-iVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="912.79999999999995" y="26.53673163418291"/>
+            <point key="canvasLocation" x="884" y="27"/>
         </scene>
     </scenes>
 </document>
