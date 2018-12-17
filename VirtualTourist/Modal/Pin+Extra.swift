@@ -1,5 +1,5 @@
 //
-//  Photo.swift
+//  Pin+Extra.swift
 //  VirtualTourist
 //
 //  Created by Sam Townsend on 2018-12-16.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public class Photo: NSManagedObject {
+extension Pin {
     
 }

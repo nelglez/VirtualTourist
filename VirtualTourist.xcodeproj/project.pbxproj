@@ -19,7 +19,8 @@
 		1D78868B21C6CBAB00A0C7DC /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868A21C6CBAB00A0C7DC /* GCDBlackBox.swift */; };
 		1D78868D21C6CEAF00A0C7DC /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78868C21C6CEAF00A0C7DC /* PhotoCell.swift */; };
 		1D9147DD21C6DE9B001F07B6 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */; };
-		1D9147DF21C6E2A6001F07B6 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147DE21C6E2A6001F07B6 /* Photo.swift */; };
+		1D9147E421C70DC0001F07B6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147E221C70DC0001F07B6 /* CoreDataModel.xcdatamodeld */; };
+		1D9147E621C72B69001F07B6 /* Pin+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9147E521C72B69001F07B6 /* Pin+Extra.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +59,8 @@
 		1D78868A21C6CBAB00A0C7DC /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		1D78868C21C6CEAF00A0C7DC /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		1D9147DC21C6DE9B001F07B6 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
-		1D9147DE21C6E2A6001F07B6 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		1D9147E321C70DC0001F07B6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		1D9147E521C72B69001F07B6 /* Pin+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extra.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,8 @@
 		1D78867E21C333A900A0C7DC /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				1D9147E221C70DC0001F07B6 /* CoreDataModel.xcdatamodeld */,
+				1D9147E521C72B69001F07B6 /* Pin+Extra.swift */,
 				1D78868621C3378C00A0C7DC /* Clients */,
 			);
 			path = Modal;
@@ -169,7 +173,6 @@
 				1D78868221C336BF00A0C7DC /* MapViewController.swift */,
 				1D78868421C3375300A0C7DC /* PhotoAlbumViewController.swift */,
 				1D78868C21C6CEAF00A0C7DC /* PhotoCell.swift */,
-				1D9147DE21C6E2A6001F07B6 /* Photo.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -330,11 +333,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D9147DF21C6E2A6001F07B6 /* Photo.swift in Sources */,
 				1D78868321C336BF00A0C7DC /* MapViewController.swift in Sources */,
 				1D78868D21C6CEAF00A0C7DC /* PhotoCell.swift in Sources */,
+				1D9147E421C70DC0001F07B6 /* CoreDataModel.xcdatamodeld in Sources */,
 				1D9147DD21C6DE9B001F07B6 /* FlickrClient.swift in Sources */,
 				1D78865021C3336D00A0C7DC /* AppDelegate.swift in Sources */,
+				1D9147E621C72B69001F07B6 /* Pin+Extra.swift in Sources */,
 				1D78868521C3375300A0C7DC /* PhotoAlbumViewController.swift in Sources */,
 				1D78868921C6CB6900A0C7DC /* Constants.swift in Sources */,
 				1D78868B21C6CBAB00A0C7DC /* GCDBlackBox.swift in Sources */,
@@ -666,6 +670,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1D9147E221C70DC0001F07B6 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1D9147E321C70DC0001F07B6 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 1D9147E321C70DC0001F07B6 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1D78864421C3336D00A0C7DC /* Project object */;
 }
