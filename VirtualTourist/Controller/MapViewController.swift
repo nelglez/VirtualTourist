@@ -90,7 +90,8 @@ extension MapViewController: MKMapViewDelegate {
         
         return pinView
     }
-        
+    
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         mapView.deselectAnnotation(view.annotation, animated: true)
@@ -107,7 +108,7 @@ extension MapViewController: MKMapViewDelegate {
                         try? dataController.viewContext.save()
                         mapView.removeAnnotation(annotation)
                     } else {
-                        performSegue(withIdentifier: "goToCollectionView", sender: pin )
+                        performSegue(withIdentifier: "SegueToPhotoAlbum", sender: pin )
                     }
                 }
             } catch {
