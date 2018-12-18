@@ -38,7 +38,6 @@ class MapViewController: UIViewController {
         
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         
-       // fetchRequest.sortDescriptors = []
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             for pin in result {
                 let annotation = MKPointAnnotation()

@@ -32,6 +32,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         
      //   setupFetchResultsController()
+        setupMapView()
     }
     
 //    func setupFetchResultsController() {
@@ -45,6 +46,15 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
 //        }
 //
 //    }
+    
+    func setupMapView() {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(pin.latitude), CLLocationDegrees(pin.longitude))
+        mapView.addAnnotation(annotation)
+        
+        let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
     
     // MARK: - CollectionView Data Source methods
     
