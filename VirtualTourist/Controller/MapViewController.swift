@@ -11,7 +11,6 @@ import UIKit
 import MapKit
 import CoreData
 
-
 class MapViewController: UIViewController {
 
     
@@ -19,25 +18,27 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var editButton: UIBarButtonItem!
-    @IBOutlet weak var deleteBannerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var removePinBannerConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     
     var pins:[Pin] = []
     var dataController: DataController!
-    var allowDelete = false
+    var removePin = false
+    
+    // MARK: Life Cycle methods
     
     override func viewDidLoad() {
         mapView.delegate = self
-        callFetchRequest()
+        setupFetchResultsController()
     }
     
     
-    func callFetchRequest() {
+    func setupFetchResultsController() {
         
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         
-        fetchRequest.sortDescriptors = []
+       // fetchRequest.sortDescriptors = []
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             for pin in result {
                 let annotation = MKPointAnnotation()
@@ -46,6 +47,7 @@ class MapViewController: UIViewController {
             }
         }
     }
+    
     // MARK: Add Pin to Map
         @IBAction func pressMapToAddPin(_ sender: UILongPressGestureRecognizer) {
         
@@ -55,6 +57,7 @@ class MapViewController: UIViewController {
             let pin = Pin(context: dataController.viewContext)
             pin.latitude = Double(coordinates.latitude)
             pin.longitude = Double(coordinates.longitude)
+            // Saves pin to CoreData
             try? dataController.viewContext.save()
             
             let annotation = MKPointAnnotation()
@@ -62,12 +65,14 @@ class MapViewController: UIViewController {
             mapView.addAnnotation(annotation)
         }
     }
-    
+    // MARK: Edit Button pressed
     @IBAction func pressEditButton(_ sender: Any) {
-        deleteBannerConstraint.constant = deleteBannerConstraint.constant == 0 ? -70.0 : 0
-        editButton.title = deleteBannerConstraint.constant == 0 ? "Edit" : "Done"
-        allowDelete = deleteBannerConstraint.constant == 0 ? false : true
-
+        // Remove Pin Banner
+        removePinBannerConstraint.constant = removePinBannerConstraint.constant == 0 ? -70.0 : 0
+        editButton.title = removePinBannerConstraint.constant == 0 ? "Edit" : "Done"
+        removePin = removePinBannerConstraint.constant == 0 ? false : true
+        
+        // Remove Pin Banner animation
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
@@ -91,38 +96,35 @@ extension MapViewController: MKMapViewDelegate {
         return pinView
     }
     
-    
+    // MARK: Pin Pressed
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         mapView.deselectAnnotation(view.annotation, animated: true)
         if let annotation = view.annotation {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
+            let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
             let predicate = NSPredicate(format: "latitude == %@ AND longitude == %@", argumentArray: [annotation.coordinate.latitude, annotation.coordinate.longitude])
             fetchRequest.predicate = predicate
             
-            do {
-                if let result = try dataController.viewContext.fetch(fetchRequest) as? [Pin],
+                if let result = try? dataController.viewContext.fetch(fetchRequest),
                     let pin = result.first {
-                    if allowDelete {
+                    // Removes Pin if Edit Button pressed and pin annotation selected
+                    if removePin {
                         dataController.viewContext.delete(pin)
                         try? dataController.viewContext.save()
                         mapView.removeAnnotation(annotation)
+                    // Segues to Photo Album View if pin annotation selected
                     } else {
                         performSegue(withIdentifier: "SegueToPhotoAlbum", sender: pin )
                     }
                 }
-            } catch {
-                print("Couln't find any Pins")
-            }
         }
-        
     }
         
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "SegueToPhotoAlbum" {
-                let viewController = segue.destination as! PhotoAlbumViewController
-                viewController.pin = sender as? Pin
-            }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToPhotoAlbum" {
+            let viewController = segue.destination as! PhotoAlbumViewController
+            viewController.pin = sender as? Pin
         }
+    }
 }
 

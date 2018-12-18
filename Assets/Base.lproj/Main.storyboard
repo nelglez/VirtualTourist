@@ -28,8 +28,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eNf-Wj-0be">
                                 <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pin to Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xeg-lS-irs">
-                                        <rect key="frame" x="122.5" y="20.5" width="130" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pin to Remove from Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xeg-lS-irs">
+                                        <rect key="frame" x="78" y="20.5" width="219.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vpy-5o-uB3" secondAttribute="trailing" id="Ti6-6D-Wte"/>
                             <constraint firstItem="eNf-Wj-0be" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Vn9-RG-Paf"/>
                             <constraint firstItem="Vpy-5o-uB3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="YC7-7M-HK5"/>
-                            <constraint firstItem="eNf-Wj-0be" firstAttribute="top" secondItem="Vpy-5o-uB3" secondAttribute="bottom" id="uOs-6d-nuo"/>
+                            <constraint firstItem="eNf-Wj-0be" firstAttribute="top" secondItem="Vpy-5o-uB3" secondAttribute="bottom" id="igA-xB-8GV" userLabel="Remove Pin Banner Constraint"/>
                             <constraint firstItem="eNf-Wj-0be" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yVr-0n-zee"/>
                             <constraint firstItem="Vpy-5o-uB3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zmr-t0-cJu"/>
                         </constraints>
@@ -65,9 +65,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="deleteBannerConstraint" destination="uOs-6d-nuo" id="RHl-n6-1UR"/>
                         <outlet property="editButton" destination="lKw-5u-GRG" id="Xyf-Yc-C2k"/>
                         <outlet property="mapView" destination="Vpy-5o-uB3" id="uo4-Pv-bfL"/>
+                        <outlet property="removePinBannerConstraint" destination="igA-xB-8GV" id="3V1-xE-8vc"/>
                         <segue destination="sVC-if-I3w" kind="show" identifier="SegueToPhotoAlbum" id="6de-tD-2fh"/>
                     </connections>
                 </viewController>
@@ -78,7 +78,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="97" y="27"/>
+            <point key="canvasLocation" x="96.799999999999997" y="26.53673163418291"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xzF-Ya-Ly9">

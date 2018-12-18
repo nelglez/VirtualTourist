@@ -9,15 +9,42 @@
 import Foundation
 import UIKit
 import MapKit
+import CoreData
 
 class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
+
+    // MARK: - IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    
+    // MARK: - Properties
+    
     var pin: Pin!
     var savedImages:[Photo] = []
+    var dataController: DataController!
+    
+    
+    // MARK: Life Cycle methods
+    
+    override func viewDidLoad() {
+        
+     //   setupFetchResultsController()
+    }
+    
+//    func setupFetchResultsController() {
+//
+//        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+//        let predicate = NSPredicate(format: "pin == %@", argumentArray: [pin])
+//        fetchRequest.predicate = predicate
+//
+//        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+//            notes = result
+//        }
+//
+//    }
     
     // MARK: - CollectionView Data Source methods
     
@@ -30,12 +57,10 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         
-     //   let meme = self.memes[(indexPath as NSIndexPath).row]
-        
-     //   cell.sentMemesImageView?.image = meme.memedImage
-     //   cell.sentMemesImageView?.contentMode = .scaleAspectFit
-        
+       // cell.activityIndicator.startAnimating()
+       // cell.initWithPhoto(savedImages[indexPath.row])
         return cell
+
     }
     
 //    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
