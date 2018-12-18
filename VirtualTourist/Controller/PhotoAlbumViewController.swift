@@ -16,7 +16,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
-    
+    var pin: Pin!
     var savedImages:[Photo] = []
     
     // MARK: - CollectionView Data Source methods

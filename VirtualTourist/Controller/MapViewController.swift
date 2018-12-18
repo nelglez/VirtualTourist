@@ -25,12 +25,13 @@ class MapViewController: UIViewController {
     
     var pins:[Pin] = []
     var dataController: DataController!
-    
-    var deleteAllowed = false
+    var allowDelete = false
     
     override func viewDidLoad() {
-     callFetchRequest()
+        mapView.delegate = self
+        callFetchRequest()
     }
+    
     
     func callFetchRequest() {
         
@@ -45,7 +46,7 @@ class MapViewController: UIViewController {
             }
         }
     }
-    
+    // MARK: Add Pin to Map
         @IBAction func pressMapToAddPin(_ sender: UILongPressGestureRecognizer) {
         
         if sender.state == .began {
@@ -65,12 +66,62 @@ class MapViewController: UIViewController {
     @IBAction func pressEditButton(_ sender: Any) {
         deleteBannerConstraint.constant = deleteBannerConstraint.constant == 0 ? -70.0 : 0
         editButton.title = deleteBannerConstraint.constant == 0 ? "Edit" : "Done"
-        deleteAllowed = deleteBannerConstraint.constant == 0 ? false : true
-        
+        allowDelete = deleteBannerConstraint.constant == 0 ? false : true
+
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        var pinView: MKPinAnnotationView
+        
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView {
+            dequeuedView.annotation = annotation
+            pinView = dequeuedView
+        } else {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            pinView.animatesDrop = true
+        }
+        
+        return pinView
+    }
+        
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        mapView.deselectAnnotation(view.annotation, animated: true)
+        if let annotation = view.annotation {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
+            let predicate = NSPredicate(format: "latitude == %@ AND longitude == %@", argumentArray: [annotation.coordinate.latitude, annotation.coordinate.longitude])
+            fetchRequest.predicate = predicate
+            
+            do {
+                if let result = try dataController.viewContext.fetch(fetchRequest) as? [Pin],
+                    let pin = result.first {
+                    if allowDelete {
+                        dataController.viewContext.delete(pin)
+                        try? dataController.viewContext.save()
+                        mapView.removeAnnotation(annotation)
+                    } else {
+                        performSegue(withIdentifier: "goToCollectionView", sender: pin )
+                    }
+                }
+            } catch {
+                print("Couln't find any Pins")
+            }
+        }
         
     }
-    
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "SegueToPhotoAlbum" {
+                let viewController = segue.destination as! PhotoAlbumViewController
+                viewController.pin = sender as? Pin
+            }
+        }
 }
+
