@@ -35,6 +35,12 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         setupMapView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView?.reloadData()
+    }
+    
 //    func setupFetchResultsController() {
 //
 //        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
