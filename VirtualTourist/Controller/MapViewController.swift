@@ -22,22 +22,23 @@ class MapViewController: UIViewController {
     
     // MARK: - Properties
     
-    var pins:[Pin] = []
+    // var pins:[Pin] = []
     var dataController: DataController!
+    var fetchedResultsController:NSFetchedResultsController<Pin>!
     var removePin = false
+
     
     // MARK: Life Cycle methods
     
     override func viewDidLoad() {
         mapView.delegate = self
-        setupFetchResultsController()
+        setupFetchedResultsController()
     }
     
-    
-    func setupFetchResultsController() {
-        
+    func setupFetchedResultsController() {
+
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-        
+
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             for pin in result {
                 let annotation = MKPointAnnotation()

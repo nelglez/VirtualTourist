@@ -13,6 +13,6 @@ class PhotoCell: UICollectionViewCell {
     
     // MARK: - IBOutlets
   
-    @IBOutlet weak var PhotoAlbumImageView: UIImageView!
+    @IBOutlet weak var photoAlbumImageView: UIImageView!
 
 }
