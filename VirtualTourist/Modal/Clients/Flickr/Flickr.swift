@@ -74,7 +74,7 @@ class Flickr: NSObject {
         task.resume()
     }
     
-    // MARK: - Helpers
+    // MARK: Helpers
     
     func createURLRequest(method: String , path: String , parameters: [String:String]) -> URLRequest {
         var components = URLComponents()
