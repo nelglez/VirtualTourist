@@ -26,7 +26,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     var pin: Pin!
     var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<Photo>!
-    var selectedCells: [IndexPath]! = []
+    var selectedPhotos: [IndexPath]! = []
     
     // MARK: Life Cycle methods
     
@@ -148,15 +148,23 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if selectedCells.contains(indexPath) == false {
-            selectedCells.append(indexPath)
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.contentView.alpha = 0.4
+        
+        if selectedPhotos.contains(indexPath) == false {
+            selectedPhotos.append(indexPath)
         }
         selectPhotoActionButton()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let index = selectedCells.firstIndex(of: indexPath) {
-            selectedCells.remove(at: index)
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.contentView.alpha = 1.0
+        
+        if let index = selectedPhotos.firstIndex(of: indexPath) {
+            selectedPhotos.remove(at: index)
         }
         selectPhotoActionButton()
     }
@@ -200,7 +208,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func hasSelectedCells() -> Bool {
-        if selectedCells.count == 0 {
+        if selectedPhotos.count == 0 {
             return false
         }
         return true
@@ -209,6 +217,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     func selectPhotoActionButton() {
         if hasSelectedCells() {
             photoActionButton.title = "Delete selected items"
+            photoActionButton.tintColor = .red
         }
         else {
             photoActionButton.title = "New Collection"
@@ -216,7 +225,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func deleteSelectedCells() {
-        let photos = selectedCells.map() { fetchedResultsController.object(at: $0) }
+        let photos = selectedPhotos.map() { fetchedResultsController.object(at: $0) }
         photos.forEach() { photo in
             dataController.viewContext.delete(photo)
             try? dataController.viewContext.save()

@@ -23,13 +23,14 @@ class Flickr: NSObject {
     func getPhotos(coordinate: CLLocationCoordinate2D, completionHandler: @escaping (_ success: Bool, _ photos: [AnyObject?], _ error: String?)-> Void) -> Void {
         
         let parameters: [String: String] = [
+            "api_key": "0f9c08d0b7e7cc75deaecb1d8a4cf05b",
+            "method": "flickr.photos.search",
             "format": "json",
             "nojsoncallback": "1",
             "lat": "\(coordinate.latitude)",
             "lon": "\(coordinate.longitude)",
-            "api_key": "0f9c08d0b7e7cc75deaecb1d8a4cf05b",
-            "method": "flickr.photos.search"
         ]
+        
         let request = createURLRequest(method: "GET", path: "/services/rest", parameters: parameters)
         print("Request: \(request.url!)")
         
@@ -93,7 +94,7 @@ class Flickr: NSObject {
         return request
     }
     
-    // MARK: - Shared Instance
+    // MARK: Shared Instance
     
     class func sharedInstance() -> Flickr {
         struct Singleton {
