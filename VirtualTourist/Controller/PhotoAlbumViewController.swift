@@ -31,6 +31,9 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        dataController = appDelegate.dataController
+        
         setupMapView()
         setCollectionViewLayout()
         setupFetchedResultsController()
