@@ -202,6 +202,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(pin.latitude), CLLocationDegrees(pin.longitude))
         mapView.addAnnotation(annotation)
+        
         let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(coordinateRegion, animated: true)
     }

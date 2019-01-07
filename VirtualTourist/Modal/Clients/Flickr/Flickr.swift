@@ -21,7 +21,7 @@ class Flickr: NSObject {
         super.init()
     }
     
-    // MARK: GET Photos
+    // MARK: GET Photos Method
     
     func getPhotos(coordinate: CLLocationCoordinate2D, completionHandler: @escaping (_ success: Bool, _ photos: [AnyObject?], _ error: String?)-> Void) -> Void {
         
