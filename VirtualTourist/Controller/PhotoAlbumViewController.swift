@@ -226,14 +226,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
-    // Checks selected photos
-    func hasSelectedPhotos() -> Bool {
-        if selectedPhotos.count == 0 {
-            return false
-        }
-        return true
-    }
-    
     // Selected photos action button
     func selectPhotoActionButton() {
         if hasSelectedPhotos() {
@@ -242,7 +234,16 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         else {
             photoActionButton.title = "New Collection"
+            photoActionButton.tintColor = .blue
         }
+    }
+    
+    // Checks selected photos
+    func hasSelectedPhotos() -> Bool {
+        if selectedPhotos.count == 0 {
+            return false
+        }
+        return true
     }
     
     // Deletes selected photos
