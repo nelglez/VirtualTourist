@@ -12,6 +12,7 @@ import MapKit
 class Flickr: NSObject {
     
     // MARK: Properties
+    
     var session = URLSession.shared
     
     // MARK: Initializers
@@ -19,6 +20,8 @@ class Flickr: NSObject {
     override init() {
         super.init()
     }
+    
+    // MARK: GET Photos
     
     func getPhotos(coordinate: CLLocationCoordinate2D, completionHandler: @escaping (_ success: Bool, _ photos: [AnyObject?], _ error: String?)-> Void) -> Void {
         
@@ -28,34 +31,42 @@ class Flickr: NSObject {
             "format": "json",
             "nojsoncallback": "1",
             "lat": "\(coordinate.latitude)",
-            "lon": "\(coordinate.longitude)",
+            "lon": "\(coordinate.longitude)"
         ]
         
-        let request = createURLRequest(method: "GET", path: "/services/rest", parameters: parameters)
-        print("Request: \(request.url!)")
-        
+        // Create session and request
         let session = URLSession.shared
+        let request = createURLRequest(method: "GET", path: "/services/rest", parameters: parameters)
         
+        // Create network request
         let task = session.dataTask(with: request) { data, response, error in
+            
+            /* GUARD: Was there an error? */
             guard error == nil else {
-                print("error returned: \(error.debugDescription)")
+                print("Error Returned: \(error.debugDescription)")
                 completionHandler(false, [], error.debugDescription)
+                
                 return
             }
             
+            /* GUARD: Was there any data returned? */
             guard let data = data else {
-                print("no data returned")
-                completionHandler(false, [], "no data returned")
+                print("No Data Returned")
+                completionHandler(false, [], "No Data Returned")
+                
                 return
             }
             
+            // Parse the data
             var parsedData: AnyObject! = nil
-            do{
+            
+            do {
                 parsedData =  try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
             }
             catch {
                 print("unable to parse json \(String(data: data, encoding: .utf8)!)")
                 completionHandler(false, [], "unable to parse json")
+                
                 return
             }
             
@@ -63,9 +74,11 @@ class Flickr: NSObject {
                 let photo = photos["photo"] as? [AnyObject]  else {
                     print("no photos attribute present")
                     completionHandler(false, [], "no photos attribute present")
+                    
                     return
             }
             
+            // Photos URL
             let photos_url = photo.map(){ photo in
                 "https://farm\(photo["farm"]!!).staticflickr.com/\(photo["server"]!!)/\(photo["id"]!!)_\(photo["secret"]!!)_s.jpg"
             }

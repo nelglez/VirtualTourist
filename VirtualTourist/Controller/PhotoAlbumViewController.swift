@@ -13,13 +13,12 @@ import CoreData
 
 class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
 
-    // MARK: - IBOutlets
+    // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var photoActionButton: UIBarButtonItem!
-    
     
     // MARK: Properties
     
@@ -28,7 +27,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     var fetchedResultsController: NSFetchedResultsController<Photo>!
     var selectedPhotos: [IndexPath]! = []
     
-    // MARK: Life Cycle methods
+    // MARK: Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +50,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView?.reloadData()
     }
     
+    // MARK: Setup Fetched Results Controller
     
     func setupFetchedResultsController() {
         
@@ -70,6 +70,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
 
+    //MARK: Load Photos Method
     
     func loadPhotos() {
 
@@ -77,11 +78,11 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         flickrClient.getPhotos(coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)) { (success, photos, error) in
             
             if success == false {
-                print("unable to download images from Flickr.")
+                print("Unable to download images from Flickr.")
                 return
             }
             
-            print("flickr images fetched : \(photos.count)")
+            print("Flickr images fetched : \(photos.count)")
             
             photos.forEach() { photo_url in
                 let photo = Photo(context: self.dataController.viewContext)
@@ -89,8 +90,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
                 photo.pin = self.pin
                 
                 do {
+                    // Saves to CoreData
                     try self.dataController.viewContext.save()
-                    print("image saved")
                 } catch  {
                     print(error.localizedDescription)
                 }
@@ -98,12 +99,16 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    // MARK: Download Images
     
     func downloadImage( imagePath:String, completionHandler: @escaping (_ imageData: Data?, _ errorString: String?) -> Void){
+        
+        // Create session and request
         let session = URLSession.shared
         let imgURL = NSURL(string: imagePath)
         let request: NSURLRequest = NSURLRequest(url: imgURL! as URL)
         
+        // Create network request
         let task = session.dataTask(with: request as URLRequest) {data, response, downloadError in
             
             if downloadError != nil {
@@ -130,10 +135,13 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         
         let photo = fetchedResultsController.object(at: indexPath)
+        
         if let data = photo.data {
             cell.photoAlbumImageView.image = UIImage(data: data)
         } else {
             cell.photoAlbumImageView.image = UIImage(named: "image")
+            
+            // Call Download Image Method
             downloadImage(imagePath: photo.url!) { imageData, errorString in
                 if let imageData = imageData {
                     DispatchQueue.main.async {
@@ -147,8 +155,11 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
+    // MARK: Select Photos Methods
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        // Changes photo opacity
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.contentView.alpha = 0.4
         
@@ -160,6 +171,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
+        // Changes photo opacity
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.contentView.alpha = 1.0
         
@@ -169,18 +181,22 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         selectPhotoActionButton()
     }
     
+    // MARK: CollectionView Layout
     
     func setCollectionViewLayout() {
         let space:CGFloat = 3.0
         let dimension = (view.frame.size.width - (2 * space)) / 3.0
         let layout = UICollectionViewFlowLayout()
+        
         layout.minimumInteritemSpacing = space
         layout.minimumLineSpacing = space
         layout.itemSize = CGSize(width: dimension, height: dimension)
-        collectionView.setCollectionViewLayout(layout, animated: true)
         
+        collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.allowsMultipleSelection = true
     }
+    
+    // MARK: Setup MapView
     
     func setupMapView() {
         let annotation = MKPointAnnotation()
@@ -190,16 +206,18 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    // MARK: Refresh New Collection
+    
     @IBAction func newCollection(_ sender: Any) {
-        if hasSelectedCells() {
-            deleteSelectedCells()
+        if hasSelectedPhotos() {
+            deleteSelectedPhotos()
         } else {
             fetchedResultsController.fetchedObjects?.forEach() { photo in
                 dataController.viewContext.delete(photo)
                 do {
                     try dataController.viewContext.save()
                 } catch {
-                    print("unable to delete photo. \(error.localizedDescription)")
+                    print("Unable to delete photo. \(error.localizedDescription)")
                 }
             }
             self.collectionView.reloadData()
@@ -207,16 +225,18 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
-    func hasSelectedCells() -> Bool {
+    // Checks selected photos
+    func hasSelectedPhotos() -> Bool {
         if selectedPhotos.count == 0 {
             return false
         }
         return true
     }
     
+    // Selected photos action button
     func selectPhotoActionButton() {
-        if hasSelectedCells() {
-            photoActionButton.title = "Delete selected items"
+        if hasSelectedPhotos() {
+            photoActionButton.title = "Delete Selected Photos"
             photoActionButton.tintColor = .red
         }
         else {
@@ -224,18 +244,15 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
-    func deleteSelectedCells() {
+    // Deletes selected photos
+    func deleteSelectedPhotos() {
         let photos = selectedPhotos.map() { fetchedResultsController.object(at: $0) }
         photos.forEach() { photo in
             dataController.viewContext.delete(photo)
             try? dataController.viewContext.save()
         }
     }
-    
 }
-
-
-
 
 // MARK: Extensions
 
@@ -245,15 +262,12 @@ extension PhotoAlbumViewController:NSFetchedResultsControllerDelegate {
         case .insert:
             self.collectionView?.insertItems(at: [newIndexPath!])
             break
-            
         case .delete:
             self.collectionView?.deleteItems(at: [indexPath!])
             break
-            
         case .update:
             self.collectionView?.reloadItems(at: [indexPath!])
             break
-            
         case .move:
             break
         }

@@ -13,27 +13,27 @@ import CoreData
 
 class MapViewController: UIViewController {
 
-    
-    // MARK: - IBOutlets
+    // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var removePinBannerConstraint: NSLayoutConstraint!
     
-    // MARK: - Properties
+    // MARK: Properties
     
-    // var pins:[Pin] = []
     var dataController: DataController!
     var fetchedResultsController:NSFetchedResultsController<Pin>!
     var removePin = false
 
-    
-    // MARK: Life Cycle methods
+    // MARK: Life Cycle Methods
     
     override func viewDidLoad() {
+        
         mapView.delegate = self
         setupFetchedResultsController()
     }
+    
+    // MARK: Setup Fetched Results Controller
     
     func setupFetchedResultsController() {
 
@@ -49,6 +49,7 @@ class MapViewController: UIViewController {
     }
     
     // MARK: Add Pin to Map
+    
         @IBAction func pressMapToAddPin(_ sender: UILongPressGestureRecognizer) {
         
         if sender.state == .began {
@@ -57,7 +58,8 @@ class MapViewController: UIViewController {
             let pin = Pin(context: dataController.viewContext)
             pin.latitude = Double(coordinates.latitude)
             pin.longitude = Double(coordinates.longitude)
-            // Saves pin to CoreData
+            
+            // Saves to CoreData
             try? dataController.viewContext.save()
             
             let annotation = MKPointAnnotation()
@@ -65,19 +67,24 @@ class MapViewController: UIViewController {
             mapView.addAnnotation(annotation)
         }
     }
-    // MARK: Edit Button pressed
+    
+    // MARK: Edit Button Pressed
+    
     @IBAction func pressEditButton(_ sender: Any) {
-        // Remove Pin Banner
+        
+        // Remove Pin Banner and changes text
         removePinBannerConstraint.constant = removePinBannerConstraint.constant == 0 ? -70.0 : 0
         editButton.title = removePinBannerConstraint.constant == 0 ? "Edit" : "Done"
         removePin = removePinBannerConstraint.constant == 0 ? false : true
         
-        // Remove Pin Banner animation
+        // Pin Banner Animation
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
     }
 }
+
+// MARK: Extensions
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -97,6 +104,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     // MARK: Pin Pressed
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         mapView.deselectAnnotation(view.annotation, animated: true)
@@ -107,16 +115,18 @@ extension MapViewController: MKMapViewDelegate {
             
                 if let result = try? dataController.viewContext.fetch(fetchRequest),
                     let pin = result.first {
+                    
                     // Removes Pin if Edit Button pressed and pin annotation selected
                     if removePin {
                         dataController.viewContext.delete(pin)
                         try? dataController.viewContext.save()
                         mapView.removeAnnotation(annotation)
+                   
                     // Segues to Photo Album View if pin annotation selected
                     } else {
                         performSegue(withIdentifier: "SegueToPhotoAlbum", sender: pin )
                     }
-                }
+            }
         }
     }
         

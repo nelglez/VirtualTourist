@@ -31,14 +31,14 @@ class DataController {
     }
 }
 
-// MARK: - Autosaving
+// MARK: Autosaving
 
 extension DataController {
     func autoSaveViewContext(interval:TimeInterval = 30) {
-        print("autosaving")
+        print("AutoSaving")
         
         guard interval > 0 else {
-            print("cannot set negative autosave interval")
+            print("Cannot set negative autosave interval")
             return
         }
         

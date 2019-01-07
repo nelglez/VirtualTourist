@@ -11,7 +11,7 @@ import UIKit
 
 class PhotoCell: UICollectionViewCell {
     
-    // MARK: - IBOutlets
+    // MARK: IBOutlets
   
     @IBOutlet weak var photoAlbumImageView: UIImageView!
 
