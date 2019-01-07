@@ -18,6 +18,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var photoActionButton: UIBarButtonItem!
     
     
     // MARK: Properties
@@ -25,6 +26,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     var pin: Pin!
     var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<Photo>!
+    var selectedCells: [IndexPath]! = []
     
     // MARK: Life Cycle methods
     
@@ -145,6 +147,20 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if selectedCells.contains(indexPath) == false {
+            selectedCells.append(indexPath)
+        }
+        selectPhotoActionButton()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let index = selectedCells.firstIndex(of: indexPath) {
+            selectedCells.remove(at: index)
+        }
+        selectPhotoActionButton()
+    }
+    
     
     func setCollectionViewLayout() {
         let space:CGFloat = 3.0
@@ -165,7 +181,52 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
         let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    
+    @IBAction func newCollection(_ sender: Any) {
+        if hasSelectedCells() {
+            deleteSelectedCells()
+        } else {
+            fetchedResultsController.fetchedObjects?.forEach() { photo in
+                dataController.viewContext.delete(photo)
+                do {
+                    try dataController.viewContext.save()
+                } catch {
+                    print("unable to delete photo. \(error.localizedDescription)")
+                }
+            }
+            self.collectionView.reloadData()
+            loadPhotos()
+        }
+    }
+    
+    func hasSelectedCells() -> Bool {
+        if selectedCells.count == 0 {
+            return false
+        }
+        return true
+    }
+    
+    func selectPhotoActionButton() {
+        if hasSelectedCells() {
+            photoActionButton.title = "Delete selected items"
+        }
+        else {
+            photoActionButton.title = "New Collection"
+        }
+    }
+    
+    func deleteSelectedCells() {
+        let photos = selectedCells.map() { fetchedResultsController.object(at: $0) }
+        photos.forEach() { photo in
+            dataController.viewContext.delete(photo)
+            try? dataController.viewContext.save()
+        }
+    }
+    
 }
+
+
+
 
 // MARK: Extensions
 

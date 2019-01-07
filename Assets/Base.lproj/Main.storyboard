@@ -148,14 +148,29 @@
                                     <outlet property="delegate" destination="sVC-if-I3w" id="hUi-UV-J6W"/>
                                 </connections>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQM-8b-FeN">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VXu-Mu-tvg"/>
+                                    <barButtonItem title="New Collection" id="Twd-Ps-ycl">
+                                        <connections>
+                                            <action selector="newCollection:" destination="sVC-if-I3w" id="t4J-uf-ChY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="d72-FG-lOO"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Zcf-TW-IoR" firstAttribute="top" secondItem="JaY-i2-RRe" secondAttribute="bottom" id="8Ro-3m-qYA"/>
                             <constraint firstItem="Zcf-TW-IoR" firstAttribute="trailing" secondItem="XP6-Je-ri3" secondAttribute="trailing" id="AJC-D5-ABJ"/>
                             <constraint firstItem="JaY-i2-RRe" firstAttribute="leading" secondItem="XP6-Je-ri3" secondAttribute="leading" id="Aps-dk-MjE"/>
+                            <constraint firstItem="nQM-8b-FeN" firstAttribute="trailing" secondItem="XP6-Je-ri3" secondAttribute="trailing" id="JNC-8f-OhN"/>
                             <constraint firstItem="JaY-i2-RRe" firstAttribute="top" secondItem="XP6-Je-ri3" secondAttribute="top" id="OD7-qd-69f"/>
                             <constraint firstItem="JaY-i2-RRe" firstAttribute="trailing" secondItem="XP6-Je-ri3" secondAttribute="trailing" id="arO-KY-Tkt"/>
+                            <constraint firstItem="nQM-8b-FeN" firstAttribute="leading" secondItem="XP6-Je-ri3" secondAttribute="leading" id="cjN-OE-myt"/>
+                            <constraint firstItem="nQM-8b-FeN" firstAttribute="bottom" secondItem="XP6-Je-ri3" secondAttribute="bottom" id="cjj-Fs-Ind"/>
                             <constraint firstItem="Zcf-TW-IoR" firstAttribute="leading" secondItem="XP6-Je-ri3" secondAttribute="leading" id="fHe-kw-Ugv"/>
                             <constraint firstItem="XP6-Je-ri3" firstAttribute="bottom" secondItem="Zcf-TW-IoR" secondAttribute="bottom" id="xer-bQ-k0R"/>
                         </constraints>
@@ -166,6 +181,7 @@
                         <outlet property="collectionView" destination="Zcf-TW-IoR" id="vkb-St-JvC"/>
                         <outlet property="flowLayout" destination="10L-W4-erY" id="chL-Ha-lvj"/>
                         <outlet property="mapView" destination="JaY-i2-RRe" id="PQt-UL-ODb"/>
+                        <outlet property="photoActionButton" destination="Twd-Ps-ycl" id="4n6-QB-UFU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIt-5m-iVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
