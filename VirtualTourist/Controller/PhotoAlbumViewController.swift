@@ -52,7 +52,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: Setup Fetched Results Controller
     
-    func setupFetchedResultsController() {
+    fileprivate func setupFetchedResultsController() {
         
         let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
         
@@ -216,6 +216,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
             fetchedResultsController.fetchedObjects?.forEach() { photo in
                 dataController.viewContext.delete(photo)
                 do {
+                    // Saves to CoreData
                     try dataController.viewContext.save()
                 } catch {
                     print("Unable to delete photo. \(error.localizedDescription)")
@@ -224,6 +225,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
             self.collectionView.reloadData()
             loadPhotos()
         }
+        // Saves to CoreData
+        try? dataController.viewContext.save()
     }
     
     // Selected photos action button

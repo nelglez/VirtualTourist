@@ -35,7 +35,7 @@ class MapViewController: UIViewController {
     
     // MARK: Setup Fetched Results Controller
     
-    func setupFetchedResultsController() {
+    fileprivate func setupFetchedResultsController() {
 
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
 
